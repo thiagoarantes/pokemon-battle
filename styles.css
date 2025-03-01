@@ -1,0 +1,33 @@
+:root {
+  --gray-0: #111111;
+  --gray-1: #222222;
+  --gray-2: #333333;
+  --gray-3: #444444;
+  --gray-4: #666666;
+  --gray-5: #EFEFEF;
+  --white: #FFFFFF;
+  --black: #000000;
+  --border-radius: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: "Press Start 2P", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: var(--gray-2);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

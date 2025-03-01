@@ -1,0 +1,18 @@
+.log {
+  margin-bottom: 10px;
+
+  & > * {
+    font-family: "Courier New", Courier, monospace;
+    font-weight: 400;
+  }
+
+  .title {
+    color: var(--gray-4);
+  }
+
+  .action::before {
+    content: ">";
+    margin-left: 3px;
+    margin-right: 5px;
+  }
+}
