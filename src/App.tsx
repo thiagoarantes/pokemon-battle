@@ -2,13 +2,14 @@ import { useCallback, useEffect, useState, useTransition } from "react";
 import { BattleLog, BattleScreen } from "./components";
 import { Battle, useBattle } from "./hooks";
 import { getCurrentDate } from "./utils";
-import { Log } from "./types";
+import { Log, Position, POSITIONS } from "./types";
 import styles from "./App.module.scss";
 
 function App() {
   const [battle, setBattle] = useState<Battle>();
-  const [resolvedBattle, setResolvedBattle] = useState(false);
+  const [loser, setLoser] = useState<Position | null>();
   const [logs, setLogs] = useState<Log[]>([]);
+
   const [isLoadingBattle, startTransition] = useTransition();
 
   const getNewBattle = useBattle();
@@ -24,7 +25,7 @@ function App() {
   };
 
   const startNewBattle = useCallback(() => {
-    setResolvedBattle(false);
+    setLoser(undefined);
 
     startTransition(async () => {
       const newBattle = await getNewBattle();
@@ -37,14 +38,14 @@ function App() {
   }, [getNewBattle]);
 
   const resolveBattle = useCallback(() => {
-    setResolvedBattle(true);
-
     if (!battle) {
       return;
     }
 
     if (battle.p1.attack.damage === battle.p2.attack.damage) {
       addLogEntry(`${battle.p1.name} vs ${battle.p2.name} results in a tie!`);
+      setLoser(null);
+
       return;
     }
 
@@ -52,12 +53,15 @@ function App() {
       addLogEntry(
         `${battle.p1.name} lands a decisive blow with ${battle.p1.attack.name} knocking out ${battle.p2.name}!`
       );
+      setLoser(POSITIONS.P2);
+
       return;
     }
 
     addLogEntry(
       `${battle.p2.name} lands a decisive blow with ${battle.p2.attack.name} knocking out ${battle.p1.name}!`
     );
+    setLoser(POSITIONS.P1);
   }, [battle]);
 
   useEffect(() => {
@@ -67,7 +71,11 @@ function App() {
   return (
     <div className={styles.console}>
       <div className={styles.screen}>
-        <BattleScreen battle={battle} isLoadingBattle={isLoadingBattle} />
+        <BattleScreen
+          battle={battle}
+          isLoadingBattle={isLoadingBattle}
+          loser={loser}
+        />
       </div>
       <div className={styles.controls}>
         <div className={styles.log}>
@@ -77,7 +85,7 @@ function App() {
           <button
             className={styles.button}
             onClick={resolveBattle}
-            disabled={resolvedBattle}
+            disabled={loser !== undefined}
           >
             Start Battle!
           </button>

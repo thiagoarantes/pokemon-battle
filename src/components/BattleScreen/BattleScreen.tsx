@@ -1,11 +1,10 @@
 import { BattleScreenProps } from "./types";
 import styles from "./BattleScreen.module.scss";
 import classNames from "classnames";
+import { POSITIONS } from "../../types";
 
 function BattleScreen(props: BattleScreenProps) {
-  const { battle, isLoadingBattle } = props;
-
-  console.log(battle);
+  const { battle, isLoadingBattle, loser } = props;
 
   return isLoadingBattle || !battle ? (
     <div className={styles.loading}>Loading...</div>
@@ -29,12 +28,20 @@ function BattleScreen(props: BattleScreenProps) {
             {battle.p1.attack.name} ({battle.p1.attack.damage})
           </span>
         </div>
-        <div className={styles.sprite}>
+        <div
+          className={classNames(styles.sprite, {
+            [styles.loser]: loser === POSITIONS.P1,
+          })}
+        >
           <img src={battle.p1.image} alt={battle.p1.name} />
         </div>
       </div>
       <div className={styles.p2}>
-        <div className={styles.sprite}>
+        <div
+          className={classNames(styles.sprite, {
+            [styles.loser]: loser === POSITIONS.P2,
+          })}
+        >
           <img src={battle.p2.image} alt={battle.p2.name} />
         </div>
         <div className={styles.dialog}>
