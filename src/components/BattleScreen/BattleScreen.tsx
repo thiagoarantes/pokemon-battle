@@ -1,8 +1,11 @@
 import { BattleScreenProps } from "./types";
 import styles from "./BattleScreen.module.scss";
+import classNames from "classnames";
 
 function BattleScreen(props: BattleScreenProps) {
   const { battle, isLoadingBattle } = props;
+
+  console.log(battle);
 
   return isLoadingBattle || !battle ? (
     <div className={styles.loading}>Loading...</div>
@@ -10,8 +13,19 @@ function BattleScreen(props: BattleScreenProps) {
     <div className={styles.container}>
       <div className={styles.p1}>
         <div className={styles.dialog}>
-          <span>{battle.p1.name}</span>
-          <span>
+          <span className={styles.types}>
+            {battle.p1.types.map((type) => (
+              <img key={type} src={type} alt={type} className={styles.type} />
+            ))}
+          </span>
+          <span
+            className={classNames(styles.name, {
+              [styles.shiny]: battle.p1.shiny,
+            })}
+          >
+            {battle.p1.name}
+          </span>
+          <span className={styles.attack}>
             {battle.p1.attack.name} ({battle.p1.attack.damage})
           </span>
         </div>
@@ -24,8 +38,19 @@ function BattleScreen(props: BattleScreenProps) {
           <img src={battle.p2.image} alt={battle.p2.name} />
         </div>
         <div className={styles.dialog}>
-          <span>{battle.p2.name}</span>
-          <span>
+          <span className={styles.types}>
+            {battle.p2.types.map((type) => (
+              <img key={type} src={type} alt={type} className={styles.type} />
+            ))}
+          </span>
+          <span
+            className={classNames(styles.name, {
+              [styles.shiny]: battle.p2.shiny,
+            })}
+          >
+            {battle.p2.name}
+          </span>
+          <span className={styles.attack}>
             {battle.p2.attack.name} ({battle.p2.attack.damage})
           </span>
         </div>

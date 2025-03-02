@@ -51,6 +51,12 @@
         &:active {
           background-color: var(--gray-1);
         }
+
+        &[disabled] {
+          background-color: var(--gray-4);
+          color: var(--gray-3);
+          cursor: not-allowed;
+        }
       }
     }
   }

@@ -1,3 +1,5 @@
+import { Position, POSITIONS } from "../types";
+
 export function getPokemonNumber() {
   return Math.floor(Math.random() * 151);
 }
@@ -22,4 +24,16 @@ export function getCurrentDate() {
     date.getMinutes() <= 9 ? "0" + date.getMinutes() : date.getMinutes();
 
   return y + "-" + m + "-" + d + " " + h + ":" + min;
+}
+
+export function getIsShiny() {
+  return Math.random() <= 0.1;
+}
+
+export function getPokemonImage(position: Position, isShiny: boolean): string {
+  if (isShiny) {
+    return position === POSITIONS.P1 ? "front_shiny" : "back_shiny";
+  }
+
+  return position === POSITIONS.P1 ? "front_default" : "back_default";
 }

@@ -43,11 +43,22 @@
         bottom: 0;
       }
 
-      & > :first-child {
-        flex-grow: 1;
+      .types {
+        position: absolute;
+        top: 8px;
+        display: flex;
+        gap: 4px;
       }
 
-      & > :last-child {
+      .name {
+        flex-grow: 1;
+
+        &.shiny {
+          color: var(--shiny);
+        }
+      }
+
+      .attack {
         font-size: 20px;
         text-align: right;
       }
@@ -99,32 +110,18 @@
   0% {
     transform: translateX(100%);
   }
-  10% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  30% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 0;
-  }
-  80% {
-    opacity: 1;
-  }
+  10%,
+  30%,
+  50%,
+  70%,
   90% {
     opacity: 0;
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    opacity: 1;
   }
   100% {
     transform: translateX(0);
@@ -135,32 +132,18 @@
   0% {
     transform: translateX(-100%);
   }
-  10% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  30% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 0;
-  }
-  80% {
-    opacity: 1;
-  }
+  10%,
+  30%,
+  50%,
+  70%,
   90% {
     opacity: 0;
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    opacity: 1;
   }
   100% {
     transform: translateX(0);

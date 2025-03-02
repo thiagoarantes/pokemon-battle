@@ -7,6 +7,7 @@ import styles from "./App.module.scss";
 
 function App() {
   const [battle, setBattle] = useState<Battle>();
+  const [resolvedBattle, setResolvedBattle] = useState(false);
   const [logs, setLogs] = useState<Log[]>([]);
   const [isLoadingBattle, startTransition] = useTransition();
 
@@ -23,6 +24,8 @@ function App() {
   };
 
   const startNewBattle = useCallback(() => {
+    setResolvedBattle(false);
+
     startTransition(async () => {
       const newBattle = await getNewBattle();
 
@@ -34,6 +37,8 @@ function App() {
   }, [getNewBattle]);
 
   const resolveBattle = useCallback(() => {
+    setResolvedBattle(true);
+
     if (!battle) {
       return;
     }
@@ -69,7 +74,11 @@ function App() {
           <BattleLog logs={logs} />
         </div>
         <div className={styles.buttons}>
-          <button className={styles.button} onClick={resolveBattle}>
+          <button
+            className={styles.button}
+            onClick={resolveBattle}
+            disabled={resolvedBattle}
+          >
             Start Battle!
           </button>
           <button className={styles.button} onClick={startNewBattle}>
