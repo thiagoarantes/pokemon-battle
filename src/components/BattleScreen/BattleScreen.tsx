@@ -14,8 +14,8 @@ function BattleScreen(props: BattleScreenProps) {
         <div className={styles.dialog}>
           <span className={styles.types}>
             {battle.p1.types.map((type) => (
-              <img key={type} src={type} alt={type} className={styles.type} />
-            ))}
+                !type ? <div className={styles.fairy}>Fairy</div> : <img key={type} src={type} alt={type} className={styles.type} />
+               ))}
           </span>
           <span
             className={classNames(styles.name, {
@@ -47,7 +47,7 @@ function BattleScreen(props: BattleScreenProps) {
         <div className={styles.dialog}>
           <span className={styles.types}>
             {battle.p2.types.map((type) => (
-              <img key={type} src={type} alt={type} className={styles.type} />
+              !type ? <div className={styles.fairy}>Fairy</div> : <img key={type} src={type} alt={type} className={styles.type} />
             ))}
           </span>
           <span
